@@ -531,7 +531,10 @@ else
 endif
 
 if host_os == 'android'
-  minizip_dep = dependency('minizip', required: false, default_options: [
+  #qqq_required_false_by_default
+  #qqq_added_native_true(error)
+  #qqq_gadget_needs_minizip_at_least
+  minizip_dep = dependency('minizip', required: true, default_options: [
     'zlib=enabled',
     'lzma=disabled',
   ])
@@ -549,7 +552,9 @@ if host_os_family == 'windows' and cc.get_argument_syntax() != 'msvc'
   openssl_options += 'asm=disabled'
 endif
 dependency('openssl',
-  required: false,
+  #qqq_required_false_by_default
+  #qqq_but_in_arm_compat_build_openssl_is_required
+  required: true,
   modules: cc.get_argument_syntax() == 'msvc' ? ['OpenSSL::SSL'] : [],
   default_options: openssl_options,
 )
